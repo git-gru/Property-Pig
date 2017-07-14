@@ -1,0 +1,373 @@
+<?php
+
+if(!isset($_SESSION)){
+    session_start();
+}
+
+if( !isset($_SESSION['userid']) && $_SESSION['userid']=='' ){
+    console.log($_SESSION['userid']);
+    header( 'location:index.php' );
+}
+include_once( 'json/class_admin.php' );
+$admin_obj    = new adminClass();
+?>
+
+  <style>
+        #mytip{
+            position:absolute;
+            z-index:9999;
+            width:150px;
+            height:100px;
+            padding:10px;
+            background: #DCDCDC;
+            color: RED;
+
+        }
+    </style>
+        <?php include( 'sidemenu.php' ); ?>
+    <div id="wrapper">
+
+    <!-----header section----->
+    <div class="ndiv header-section-2">
+        <div class="ndiv logo-b-holder">
+            <img class="imgres" src="image/logo_b.png" alt="logo" />
+        </div>
+        <a href="logout.php">
+            <div class="ndiv logout-button-holder">
+                <i style="color: #fff !important;" class="fa fa-sign-out" aria-hidden="true"></i>
+            </div>
+        </a> 
+    </div>
+    <!----/header section----->
+
+    <!---- menu tab section--->
+
+    <div class="ndiv tab-menu-section">
+        <ul class="menu-ul tab-menu-ul">
+            <li class="active">list of customers</li>
+<!--            <li>reports</li>
+            <li>Questions</li>-->
+        </ul>
+    </div>
+
+    <!----/menu tab section--->
+
+    <!----contetn section----->
+    <div class="ndiv tab-content-section">
+                            <?php
+                            $Customerlist   = $admin_obj->customerlist();
+                            $Customerlist_array = [];
+                            $Customerlist_array = $Customerlist['customerlist'];
+
+                            ?>
+        <div class="ndiv tab active tab-sec-one">
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>phone number</th>
+                                            <th>zip code</th>
+                                            <th>status</th>
+                                            <th>Active/Inactive</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach ($Customerlist_array as $val ) {
+                                         echo '<tr id="customerlist_tr'.$val['user_id'].'">
+												<td >
+													'.$val['Name'].'</td>
+												<td>'.$val['phoneNumber'].'</td>
+												<td>'.$val['zipCode'].'</td>';
+												if($val['reviewStatus']==0)
+                                                {
+
+                                                    echo '<td><p id="'.$val['user_id'].'review">New user</p></td>';
+                                                }
+                                                else{
+                                                   echo '<td><p id="'.$val['user_id'].'review">Reviewed user</p></td>';
+                                                }
+                                        echo '<td class="'.$val['user_id'].'" style="text-align: center;">';
+                                                if($val['userStatus']==0)
+                                                {
+
+                                                  echo ' <button  class="butin" id="'.$val['user_id'].'" onclick="active('.$val['user_id'].',0)">Activate</button>';
+                                                }
+                                                else{
+                                                    echo '<button  class="butact" id="'.$val['user_id'].'" onclick="active('.$val['user_id'].',1)">Deactivate</button>';
+                                                }
+                                       echo '</td>';
+
+                                        echo '<td style="text-align: center;">';
+
+                                        echo"<a href='javascript:void(0);'   onclick='userpopup(". json_encode($val).",".$val['reviewStatus'].")' data-toggle='modal' data-target='#myModal' style='padding: 10px;'>";
+                                        echo'<i class="fa fa-user" ></i></a>';
+                                        echo"<a href='javascript:void(0);'   onclick='questionpopup(". json_encode($val).",".$val['reviewStatus'].")' data-toggle='modal' data-target='#myModal2' style='padding: 10px;'>";
+                                        echo'<i class="fa fa-question-circle" ></i></a>';
+                                        ?>
+                                        <a href="javascript:void(0)" onclick="return userproperty(<?php echo json_encode($val); ?>,<?php echo $val['reviewStatus']; ?>)" class="togglemytip" data-toggle="modal" data-target="#myModal3" style="padding: 10px;" >
+                                            <i class="fa fa-paragraph" ></i>
+                                        </a>
+                                        <a href="documents.php?id=<?php echo $val['user_id']; ?>"  style="padding: 10px;">
+                                            <i class="fa fa-file-text" ></i>
+                                        </a>
+												  </td> </tr>
+                                        <?php                                                          
+
+                                    }
+                                    ?>
+
+            
+            
+             </tbody>
+                
+            </table>
+        </div>
+        
+        <!-- Modal profile -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Profile details</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row" id="targetDIV">
+                                                    <!-- /.panel-body -->
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal profile -->
+                            <!-- Modal profile -->
+                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Question and Answers</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row" >
+                                                <div class="panel-body" id="targetquestion">
+
+
+                                                </div>
+                                                <!-- /.panel-body -->
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            
+                            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Property details</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row" id="PropertyDiv">
+                                                    <!-- /.panel-body -->
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+        
+
+    </div>
+    <!---/contetn section----->
+
+</div>
+    <!-- /#wrapper -->
+<!-- Bootstrap Core JavaScript -->
+
+
+<!-- Metis Menu Plugin JavaScript -->
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
+<!--    https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js-->
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: 'Save current page',
+                        exportOptions: {
+                            modifier: {
+                                page: 'current'
+                            }
+                        }
+                    }
+                ]
+            } );
+    });
+    $('.tooltip-demo').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+
+    // popover demo
+    $("[data-toggle=popover]")
+        .popover()
+    $(document).on('click','.togglemytip',function(){
+        $left = $(this).position().left + Number(250);
+        $top = $(this).position().top +Number(50);
+        $('#mytip').css('left',$left);
+        $('#mytip').css('top',$top);
+        $('#mytip').show();
+    }).on('blur','.togglemytip',function(){
+        $('#mytip').hide();
+    });
+    
+    function userproperty(item,status)
+    {
+       
+            console.log("d");
+//        $.ajax({
+//            url: "http://www.sicsglobal.com/HybridApp/property_pig/admin/json/api.php",
+//            data: {userid:item.user_id,request :'property'},
+//            type: 'POST',
+//            dataType:'json',
+//            success: function(result){
+//                console.log(result);
+//                //$("#"+item.user_id+"review").replaceWith('<p>Reviewed user</p>');
+//
+//            }
+//        });
+     
+//
+//        $("#targetDIV").html('<div class="panel-body"><address><strong>Name</strong><br><p>'+item.Name+'</p></address> <br/><address><strong>Phone number</strong><br><p>'+item.phoneNumber+'</p></address><br/><address><strong>Email id</strong><br><a href="mailto:#">'+item.email+'</a></address> <address><strong>User name</strong><br><p>'+item.userName+'</p></address><address> <br/><strong>Address</strong><br>'+item.Address+'</address> <address><strong>Zipcode</strong><br> <p>'+item.zipCode+'</p></address></div>');
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function userpopup(item,status)
+    {
+        console.log(item);
+        if(status==0)
+        {
+        $.ajax({
+            url: "https://www.propertypig.co.uk/admin/json/api.php",
+            data: {userid:item.user_id,request :'reviewstatus'},
+            type: 'POST',
+            dataType:'json',
+            success: function(result){
+                console.log(result)
+                $("#"+item.user_id+"review").replaceWith('<p>Reviewed user</p>');
+
+            }
+        });
+        }
+
+        $("#targetDIV").html('<div class="panel-body"><address><strong>Name</strong><br><p>'+item.Name+'</p></address> <br/><address><strong>Phone number</strong><br><p>'+item.phoneNumber+'</p></address><br/><address><strong>Email id</strong><br><a href="mailto:#">'+item.email+'</a></address> <address><strong>User name</strong><br><p>'+item.userName+'</p></address><address> <br/><strong>Address</strong><br>'+item.Address+'</address> <address><strong>Zipcode</strong><br> <p>'+item.zipCode+'</p></address></div>');
+
+    }
+    function questionpopup(item,status)
+    {
+        console.log(item);
+        var question=[];
+        question=item.qusandans;
+        console.log(question);
+        if(status==0)
+        {
+            $.ajax({
+                url: "https://www.propertypig.co.uk/admin/json/api.php",
+                data: {userid:item.user_id,request :'reviewstatus'},
+                type: 'POST',
+                dataType:'json',
+                success: function(result){
+                    console.log(result)
+                    $("#"+item.user_id+"review").replaceWith('<p>Reviewed user</p>');
+
+                }
+            });
+        }
+        $("#targetquestion").empty();
+        $.each( question, function( key, value ) {
+            console.log(value);
+            $("#targetquestion").append('<div class="row" style="margin-left: 20px"> <p>Question :'+value.question+'</p> <p>Answer&nbsp;&nbsp;&nbsp;: '+value.answer+'</p> </div>');
+        });
+
+
+
+    }
+    function active(userid,type)
+    {
+        console.log(type);
+        $.ajax({
+            url: "https://www.propertypig.co.uk/admin/json/api.php",
+            data: {userid:userid,type:type,request :'userstatus'},
+            type: 'POST',
+            dataType:'json',
+            success: function(result){
+                console.log(result);
+                if( result.status === "true"){
+                    if(type==0)
+                    {
+                        console.log(userid);
+                        //$("."+ userid).not(".butin" ).hide();
+                        $("#"+userid).replaceWith('<button  class="butact" id='+userid+' onclick="active('+userid+',1)">Activate</button>');
+
+                    }
+                    else
+                    {
+                        $("#"+userid).replaceWith('<button  class="butact" id='+userid+' onclick="active('+userid+',0)">Deactivate</button>');
+
+                    }
+                }
+             else {
+                swal("Customer", "Please try again", "error");
+                }
+            }
+        });
+    }
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+@charset "utf-8";
+/* CSS Document */
+body{font-family: 'Nunito', sans-serif; font-size:14px; font-weight:400;}
+.page-holder-admin{position:relative; width:100%; min-height:100vh;}
+.page-holder-admin[page="signin"]{    background-color: rgb(129, 115, 196);}
+.side-panel-holder{width:204px; position:absolute;min-height:100%; left:0px; top:0px; background-color:#27233b; z-index:10000; -webkit-transition: all 1s ease;  
+    -moz-transition: all 1s ease;  
+    -o-transition: all 1s ease;   
+    -ms-transition: all 1s ease; 
+    transition: all 1s ease;}
+.side-panel-logo-holder > i{position:absolute; top:10px; right:10px; z-index:99; display:none;}
+.main-panel-holder{width:calc(100% - 204px); min-height:100vh; float:right;}
+.side-panel-logo-holder{background-color:#8173c4; padding:13px 20px; position:relative;}
+.main-panel-holder > div{}
+.notisfication-icon-holder{width:20px;}
+.menu-icon-holder{width:20px;font-size:20px; color:#96a7a7; display:none; margin-right: 20px;}
+.search-bar-holder{width:calc(100% - 20px);}
+.notisfication-icon-holder > i{font-size:20px; color:#96a7a7; position:relative;}
+.notisfication-icon-holder{position:relative;}
+.header-section-1{ border-bottom:1px solid #ccc; padding:34px 45px; }
+.notic-count{width:16px; height:16px; border-radius:50%; background-color:#e74134; color:#fff;font-size:12px;position: absolute; top: 3px; right: 4px;     transform: translate(50%,-50%); text-align: center;line-height: 16px;}
+.search_box{outline:none; border:0px; font-size:14px; color:#919a9b; height:20px; padding:0px 10px; width:calc(100% - 24px);border-bottom:1px solid transparent;}
+.search_box:focus{border-bottom:1px solid #919a9b;}
+.search-bar-and-button{max-width:170px; float:right;}
+.search-button{width:20px; font-size:20px; color:#919a9b; background-color:transparent; padding:0px; width:20px;}
+.logo-b-holder > img{max-width:325px;}
+.header-section-2{padding:25px 45px; position: relative;}
+.logout-button-holder{width:44px;}
+.logo-b-holder{width:calc(100% - 44px);}
+.logout-button-holder > i{font-size:23px; border:0px solid #ccc; border-radius:50%; width:44px; height:44px; text-align:center; line-height:44px; background-color:#8173c4; color:#fff; cursor:pointer; position:absolute; top: 50%;transform: translate(0%, -50%); }
+.tab-menu-ul{text-transform:uppercase; color:#000; font-weight:700; }
+.tab-menu-section{padding:0px 45px;}
+.tab-menu-ul > li{margin-right:60px; border-bottom:4px solid transparent; cursor:pointer;}
+.tab-menu-ul > li.active, .tab-menu-ul > li:hover{border-bottom:4px solid #8173c4;}
+.tab-content-section{padding:35px 45px; background-color:#ecf0f1;}
+.tab-content-section > table{background-color:#fff; border:1px solid #000;}
+#example_wrapper {
+    background-color: #fff;
+    padding: 20px 25px;
+    border-radius: 16px;
+}
+.details-icon > i{color:#6d4ebe; margin:0px 5px; cursor:pointer;}
+.activebutton {
+    margin: auto;
+    float: none;
+    display: block;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonface;
+    border-image: initial;
+}
+div#example_wrapper > .row:nth-child(1) > .col-sm-6:nth-child(1) {
+    float: right;
+}
+div#example_wrapper > .row:nth-child(1) > .col-sm-6:nth-child(2) {
+   float:left;
+}
+div#example_length {
+    float: right;
+}
+div#example_filter {
+    float: left;
+}
+div#example_filter:after{
+	content:"customers"; text-transform:uppercase; font-weight:900; color:#97a6a3;
+}
+div#example_filter > label{display:none; }
+div#example_wrapper > .row:nth-child(2){overflow:auto;}
+.menu-side-bar > li {
+    color: #fff;
+    padding: 13px 10px;
+    font-weight: 700;
+}
+.menu-side-bar > li.active, .menu-side-bar > li:hover {background-color:#1b1829; cursor:pointer;}
+.menu-side-bar{margin-top:20px;}
+.menu-side-bar > li > i{color:#8173c4; font-size:28px; margin-right:10px;}
+.tab{display:none;}
+.tab.active{display:block;}
+
+.signin-logo{margin:auto; float:none; display:table; max-width:194px; margin-top:30px;}
+.signin-form-center{max-width:440px; margin:auto; float:none; display:table; overflow:hidden;}
+.signin-form-center{background-color:#fefefe; border-radius:5px;}
+.signin-form-in{ padding:25px; padding-bottom:0px;}
+.signin-form-in > p, .signin-form-in > input{width:100%;}
+.fup-signin{float:right;}
+.label-signin{margin:9px 0px;}
+.signin-field{height:40px; border:1px solid #877ac6; border-radius:3px; padding:0px 10px; outline:0px; border:1px solid #ccc; width:100%;}
+.signin-field:focus{ box-shadow:0px 0px 10px rgb(129, 115, 196);}
+.input-holder{padding:6px; border-radius:7px; position:relative;}
+.input-holder > span{width:100%; height:100%; position:absolute; background-color:#000;}
+.focused{background-color:#d9d6e7;}
+.button-section-signin{margin-top:39px;  background-color:#f7f6fc;   padding: 25px;  border-top: 1px solid #ccc;}
+.keep-me-signedin{width:50%;}
+.keep-me-signedin span{display: block;
+    width: 119px;
+    float: left;}
+.keep-me-signedin > input{float:left; margin-top:2px; margin-right:5px;}
+.keep-me-signedin:first-child{padding-top: 10px;}
+.signin-button{
+	border:1px solid #2626b6; border-radius:30px; width:99px; height:38px; color:#fff; font-weight:700; float:right;
+	
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b9a7df+0,726ace+100 */
+background: #b9a7df; /* Old browsers */
+background: -moz-linear-gradient(top, #b9a7df 0%, #726ace 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #b9a7df 0%,#726ace 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #b9a7df 0%,#726ace 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b9a7df', endColorstr='#726ace',GradientType=0 ); /* IE6-9 */}
+.ndiv.signin-form-holder {
+    margin: 25px 0px;
+}
+
+@media(max-width:780px)
+{
+	.tab-menu-section, .tab-content-section{padding:10px;}
+}
+
+@media(min-width:768px)
+{
+	.side-panel-holder{left:0px !important;}
+}
+
+@media(max-width:767px)
+{
+	.side-panel-holder{left:-204px;}
+	.main-panel-holder{width:100%;}
+	.header-section-2, .header-section-1{padding:10px;}
+	.tab-menu-ul > li {margin-right: 25px;}
+	.menu-icon-holder{display:block;}
+	.search-bar-holder{width:calc(100% - 60px);}
+	.side-panel-logo-holder > i{display:block;}
+}
+
+@media(max-width:400px)
+{
+	.tab-menu-ul > li {
+		margin-right: 10px;
+		font-size: 12px;
+	}
+}

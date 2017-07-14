@@ -1,0 +1,24 @@
+       1 it's not fast as lai
+         -Server band width pbm
+
+       2 it's stop working at middle  of task-Timezone issue fixed
+
+       3  it doesn't  show updated ticket list in view inventory-already working 
+         
+        4.It s very hard to login.even though if it correct  username n password -Server band width pbm
+        5.remove phone contact information completely from thank you , welcome,
+         invoice etc...--Fixed
+
+        6.use "StoreYogi Management Team" instead of Raj Patel CEO Founder,
+         Marketing head etc...etc in welcome email and thank you email sent out-Fixed
+
+        7. use only one email address admin@storeyogi.com in the email under "StoreYogi Management Team"
+          the email not send in admin@storeyogi.com .we tried to configure the webmail.
+         but email not send to mail.So we used storeyogi2k16@gmail.com mail
+        8.Dummy data removed in product page and updated pricing
+
+       9.Add phone number in Support page
+       10.currect contact number validation in support page
+
+       11.Replace images in gallery
+      12.Replace paypal account details
